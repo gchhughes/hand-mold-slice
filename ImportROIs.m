@@ -26,7 +26,7 @@ for i = 1:sz(1)
         elseif mod(j,2) ~= 1
             mr(l) = c(i,j);
             l = l+1;
-        end        
+        end
     end
     maskMR = cell2mat(cellfun(@(x)any(isnan(x)),mr,'UniformOutput',false)); % Identify NaN cells
     wm(maskMR) = [];
@@ -42,11 +42,12 @@ for i = 1:sz(1)
     folder = strcat(path,s(i).id{:});
     for j = 1:m
         % ROI data for MR
-        s(i).slices(j).mrNumb = s(i).mr(j);
-        roiLocation = strcat(folder,'MR',s(i).mr(j),'.roi');
+        s(i).slices(j).mrNum = cell2mat(s(i).mr(j));
+        roiLocation = strcat(folder,'\MR',s(i).slices(j).mrNum,'.roi');
         
         % ROI data for WM
-        s(i).slices(j).wmNumb = s(i).wm(j);
-        roiLocation = strcat(folder,'WM',s(i).wm(j),'.roi');
+        s(i).slices(j).wmNum = regexprep(s(i).wm(j),'[^0-9]','');
+        s(i).slices(j).wmNum = cell2mat(s(i).slices(j).wmNum);
+        roiLocation = strcat(folder,'\WM',s(i).slices(j).wmNum,'.roi');
     end
 end
