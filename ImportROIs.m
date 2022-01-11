@@ -9,11 +9,11 @@
 % function [patients] = Import-ROIs(folderLocation)
 [filename,path] = uigetfile('*');
 cd(path);
-[~,~,c] = xlsread(filename);    % Switched to xlsread because it NaN cells w/out data
+[~,~,c] = xlsread(filename,'Ready');    % Switched to xlsread because it NaN cells w/out data
 sz = size(c);
 s = struct([]); % Create an empty structure
 
-%% Sort Spreadsheet
+%% Sort Spreadsheet (needs to be changed depending on data format)
 for i = 1:sz(1)
     wm = cell(1,((sz(2)/2)-1));
     mr = cell(1,((sz(2)/2)-1));
@@ -42,12 +42,20 @@ for i = 1:sz(1)
     folder = strcat(path,s(i).id{:});
     for j = 1:m
         % ROI data for MR
-        s(i).slices(j).mrNum = cell2mat(s(i).mr(j));
-        roiLocation = strcat(folder,'\MR',s(i).slices(j).mrNum,'.roi');
+        s(i).slice(j).mrNum = cell2mat(s(i).mr(j));
+        roiLocation = strcat(folder,'\MR',mat2str(s(i).slice(j).mrNum),'.roi');
+        [s(i).slice(j).MR_Mask,s(i).slice(j).MR_Data,s(i).slice(j).MR_Key] = Import_MR_ROIs(roiLocation);
+        [s(i).slice(j).MR_Prostate,s(i).slice(j).MR_Pz,s(i).slice(j).MR_Tz,s(i).slice(j).MR_Tumor1,s(i).slice(j).MR_Tumor2,s(i).slice(j).MR_Tumor3] = SortROIs(s(i).slice(j).MR_Data);
+        MRfile = strcat('MR',mat2str(s(i).slice(j).mrNum),'\n');
+        fprintf(MRfile);
         
         % ROI data for WM
-        s(i).slices(j).wmNum = regexprep(s(i).wm(j),'[^0-9]','');
-        s(i).slices(j).wmNum = cell2mat(s(i).slices(j).wmNum);
-        roiLocation = strcat(folder,'\WM',s(i).slices(j).wmNum,'.roi');
+        s(i).slice(j).wmNum = regexprep(s(i).wm(j),'[^0-9]','');
+        s(i).slice(j).wmNum = cell2mat(s(i).slice(j).wmNum);
+        roiLocation = strcat(folder,'\WM',s(i).slice(j).wmNum,'.roi');
+        [s(i).slice(j).WM_Mask,s(i).slice(j).WM_Data,s(i).slice(j).WM_Key] = Import_WM_ROIs(roiLocation);
+        [s(i).slice(j).WM_Prostate,s(i).slice(j).WM_Pz,s(i).slice(j).WM_Tz,s(i).slice(j).WM_Tumor1,s(i).slice(j).WM_Tumor2,s(i).slice(j).WM_Tumor3] = SortROIs(s(i).slice(j).WM_Data);
+        WMfile = strcat('WM',s(i).slice(j).wmNum,'\n');
+        fprintf(WMfile);
     end
 end
