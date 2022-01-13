@@ -6,8 +6,8 @@
 %   Parse through MR.ROI file to create trace masks                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [mask,d,key] = mrROIs(filename)
-% filename = 'C:\Users\griff\Downloads\segmentation\10042_1_03OZYDY8\MR10.roi';
+% function [mask,d,key] = mrROIs(filename)
+filename = 'C:\Users\griff\Downloads\segmentation\10042_1_244PS323\MR11.roi';
 data = importdata(filename);
 sz = size(data);
 count = 1;  % Count number of datapoints per trace to create matrix
@@ -22,6 +22,7 @@ point = '[^0-9.]';
 %% Parse the .ROI data
 for i = 1:sz(1)
     x = char(data(i,1));
+    x = regexprep(x,'†††','††{0.0, 0.0}††'); % Tag new traces with 0.0 point
     match = regexp(x,form,'match');
     [~,m] = size(match);
     y = cell(3,m);
@@ -33,20 +34,31 @@ for i = 1:sz(1)
         y(3,j) = regexprep(z{:},point,'');
         a(count,1) = str2double(y(2,j));
         a(count,2) = str2double(y(3,j));
+        if a(count,1) == 0 && a(count,2) == 0
+            trace = trace+1;
+        end
         a(count,3) = trace;
         count = count+1;
     end
-    if count > old
-        trace = trace+1;
+end
+
+%% Remove Trace Tags
+[n,~] = size(a);
+i = 1;
+while i<n+1
+    if a(i,1) == 0 && a(i,2) == 0
+        a(i,:) = [];
+        [n,~] = size(a);
+    else
+        i = i+1;
     end
-    old = count;
 end
 
 %% Interpolate and Create Masks
 d = [];
 f = [];
 aOriginal = a;
-res = 512; % Mask resolution
+res = 1024; % Mask resolution
 for k = 1:trace-1
     b = a(a(:,3) == k,:); % Work with one trace at a time
     c = V_interpolate(b,5,5);
@@ -58,6 +70,7 @@ for k = 1:trace-1
     center(k,:) = Parameters.Centroid;
     area(k) = Parameters.Area;
     MAL(k) = Parameters.MajorAxisLength;
+    % imshow(mask(:,:,k));
 end
 
 %% Find Labels for Each Trace
