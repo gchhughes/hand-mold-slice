@@ -43,18 +43,18 @@ for i = 1:sz(1)
         % ROI data for MR
         s(i).slice(j).mrNum = cell2mat(s(i).mr(j));
         roiLocation = strcat(folder,'\MR',mat2str(s(i).slice(j).mrNum),'.roi');
-        [s(i).slice(j).MR_Mask,s(i).slice(j).MR_Data,s(i).slice(j).MR_Key] = Import_MR_ROIs(roiLocation);
-        [s(i).slice(j).MR_Prostate,s(i).slice(j).MR_Pz,s(i).slice(j).MR_Tz,s(i).slice(j).MR_Tumor1,s(i).slice(j).MR_Tumor2,s(i).slice(j).MR_Tumor3] = SortROIs(s(i).slice(j).MR_Data);
-        MRfile = strcat('MR',mat2str(s(i).slice(j).mrNum),'\n');
-        fprintf(MRfile);
+        [s(i).slice(j).mrMask,s(i).slice(j).mrData,s(i).slice(j).mrKey] = mrROIs(roiLocation);
+        [s(i).slice(j).mrProstate,s(i).slice(j).mrPz,s(i).slice(j).mrTz,s(i).slice(j).mrTumor1,s(i).slice(j).mrTumor2,s(i).slice(j).mrTumor3] = SortROIs(s(i).slice(j).mrData);
+        mrFile = strcat('MR',mat2str(s(i).slice(j).mrNum),'\n');
+        fprintf(mrFile);
         
         % ROI data for WM
         s(i).slice(j).wmNum = regexprep(s(i).wm(j),'[^0-9]','');
         s(i).slice(j).wmNum = cell2mat(s(i).slice(j).wmNum);
         roiLocation = strcat(folder,'\WM',s(i).slice(j).wmNum,'.roi');
-        [s(i).slice(j).WM_Mask,s(i).slice(j).WM_Data,s(i).slice(j).WM_Key] = Import_WM_ROIs(roiLocation);
-        [s(i).slice(j).WM_Prostate,s(i).slice(j).WM_Pz,s(i).slice(j).WM_Tz,s(i).slice(j).WM_Tumor1,s(i).slice(j).WM_Tumor2,s(i).slice(j).WM_Tumor3] = SortROIs(s(i).slice(j).WM_Data);
-        WMfile = strcat('WM',s(i).slice(j).wmNum,'\n');
-        fprintf(WMfile);
+        [s(i).slice(j).wmMask,s(i).slice(j).wmData,s(i).slice(j).wmKey] = wmROIs(roiLocation);
+        [s(i).slice(j).wmProstate,s(i).slice(j).wmPz,s(i).slice(j).wmTz,s(i).slice(j).wmTumor1,s(i).slice(j).wmTumor2,s(i).slice(j).wmTumor3] = SortROIs(s(i).slice(j).wmData);
+        wmFile = strcat('WM',s(i).slice(j).wmNum,'\n');
+        fprintf(wmFile);
     end
 end
