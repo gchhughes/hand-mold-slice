@@ -49,12 +49,12 @@ for i = 1:sz(1)
         fprintf(mrFile);
         
         % ROI data for WM
-        s(i).slice(j).wmNum = regexprep(s(i).wm(j),'[^0-9]','');
-        s(i).slice(j).wmNum = cell2mat(s(i).slice(j).wmNum);
+        s(i).slice(j).wmNum = regexprep(s(i).wm(j),'[^0-9-]','');
+        % s(i).slice(j).wmNum = cell2mat(s(i).slice(j).wmNum);
         roiLocation = strcat(folder,'\WM',s(i).slice(j).wmNum,'.roi');
-        [s(i).slice(j).wmMask,s(i).slice(j).wmData,s(i).slice(j).wmKey] = wmROIs(roiLocation);
+        [s(i).slice(j).wmMask,s(i).slice(j).wmData,s(i).slice(j).wmKey] = wmROIs(roiLocation{:});
         [s(i).slice(j).wmProstate,s(i).slice(j).wmPz,s(i).slice(j).wmTz,s(i).slice(j).wmTumor1,s(i).slice(j).wmTumor2,s(i).slice(j).wmTumor3] = SortROIs(s(i).slice(j).wmData);
-        wmFile = strcat('WM',s(i).slice(j).wmNum,'\n');
+        wmFile = strcat('WM',s(i).slice(j).wmNum{:},'\n');
         fprintf(wmFile);
     end
 end
