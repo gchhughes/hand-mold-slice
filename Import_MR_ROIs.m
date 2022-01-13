@@ -10,10 +10,8 @@ filename = 'C:\Users\griff\Downloads\segmentation\10042_1_03OZYDY8\MR10.roi';
 d = importdata(filename);
 sz = size(d);
 count = 1;  % Count number of datapoints per trace to create matrix
+old = 1;
 trace = 1;  % Count the number of traces
-store1 = false; % When true, store the first value
-store2 = false; % When true, store the second value
-value = ''; % Used to temporarily store pixel values
 key = [];
 form = '{\d*.\d*,\s\d*.\d*}††'; % Look for data that has the form: {'{180.55561828613281, 176.70474243164062}††'}
 xPoint = '\d*.\d*,';
@@ -37,4 +35,8 @@ for i = 1:sz(1)
         b(count,3) = trace;
         count = count+1;
     end
+    if count > old
+        trace = trace+1;
+    end
+    old = count;
 end
