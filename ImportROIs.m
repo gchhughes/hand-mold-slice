@@ -2,18 +2,17 @@
 %   ImportROIs                                                           %
 %   CASIT                                                                %
 %   Author: Griffith Hughes                                              %
-%   Date:   01/11/2022                                                   %
-%                                                                        %
+%   Date:   01/12/2022                                                   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% function [patients] = Import-ROIs(folderLocation)
+% function [s] = ImportROIs(folderLocation)
 [filename,path] = uigetfile('*');
 cd(path);
-[~,~,c] = xlsread(filename,'Ready');    % Switched to xlsread because it NaN cells w/out data
+[~,~,c] = xlsread(filename,'Ready');    % Switched to xlsread because it NaN cells w/out data; edit to select sheet
 sz = size(c);
 s = struct([]); % Create an empty structure
 
-%% Sort Spreadsheet (needs to be changed depending on data format)
+%% Sort Spreadsheet (Section may require changes depending on spreadsheet format)
 for i = 1:sz(1)
     wm = cell(1,((sz(2)/2)-1));
     mr = cell(1,((sz(2)/2)-1));
