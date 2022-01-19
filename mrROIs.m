@@ -6,8 +6,8 @@
 %   Parse through MR.ROI file to create trace masks                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% function [mask,d,key] = mrROIs(filename)
-filename = 'C:\Users\griff\Downloads\segmentation\10042_1_244PS323\MR11.roi';
+function [mask,d,key] = mrROIs(filename)
+% filename = 'C:\Users\griff\Downloads\segmentation\10042_1_244PS323\MR11.roi';
 data = importdata(filename);
 sz = size(data);
 count = 1;  % Count number of datapoints per trace to create matrix
@@ -58,7 +58,7 @@ end
 d = [];
 f = [];
 aOriginal = a;
-res = 1024; % Mask resolution
+res = 2048; % Mask resolution
 for k = 1:trace-1
     b = a(a(:,3) == k,:); % Work with one trace at a time
     c = V_interpolate(b,5,5);

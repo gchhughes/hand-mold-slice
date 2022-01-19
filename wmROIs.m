@@ -58,7 +58,7 @@ end
 d = [];
 f = [];
 a(:,1:2) = a(:,1:2)./10;
-res = 512; % Mask resolution
+res = 2048; % Mask resolution
 for k = 1:trace-1
     b = a(a(:,3) == k,:); % Work with one trace at a time
     c = V_interpolate(b,5,5);
@@ -68,7 +68,7 @@ for k = 1:trace-1
 end
 
 %% Find Labels for Each Trace
-d(:,3) = f(:,3);
+d(:,1:3) = f(:,1:3);
 [n,~] = size(d);
 d = num2cell(d);
 idCode = FindDataLabels(filename);

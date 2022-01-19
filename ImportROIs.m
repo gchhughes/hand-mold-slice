@@ -3,12 +3,11 @@
 %   CASIT                                                                %
 %   Author: Griffith Hughes                                              %
 %   Date:   01/12/2022                                                   %
+%   Imports ROI information in a structure                               %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% function [s] = ImportROIs(folderLocation)
-[filename,path] = uigetfile('*');
-cd(path);
-[~,~,c] = xlsread(filename,'Ready');    % Switched to xlsread because it NaN cells w/out data; edit to select sheet
+function [s] = ImportROIs(filename,path)
+[~,~,c] = xlsread(filename,'Test');    % Switched to xlsread because it NaN cells w/out data; edit to select sheet
 sz = size(c);
 s = struct([]); % Create an empty structure
 

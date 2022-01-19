@@ -18,7 +18,7 @@ addpath 'C:\Users\griff\Documents\MATLAB\jake-code'
 
 %% Import ROI Data
 fprintf('Importing...\n');
-s = ImportROIs(filename,path);
+s = ImportROIs(filename,path); % Change sheet name to "Ready" and move data there first
 
 %% Alignment
 fprintf('Aligning...\n');
