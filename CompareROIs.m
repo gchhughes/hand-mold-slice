@@ -27,7 +27,7 @@ s = NonRigidAlign(s); % Requires Mapping, Statistics & Machine Learning Toolboxe
 
 %% Statistics
 fprintf('Computing Statistics...\n');
-s = Statistics(s);
+s = Statistics(s,path);
 
 %% Store Data
 fprintf('Storing Data...\n');
