@@ -1,4 +1,4 @@
-function [data] = Statistics(data)
+function [data] = Statistics(data,path)
 n = size(data);
 res = 512;
 for i = 1:n(2)
@@ -19,7 +19,6 @@ for i = 1:n(2)
         mrPz = poly2mask(data(i).slice(j).mrPz(:,1),data(i).slice(j).mrPz(:,2),res,res);
         
         %Find Areas
-        
         WM_Prostate_Area = regionprops(WM_Prostate,'Area','MajorAxisLength');
         WM_Tz_Area = regionprops(WM_Tz,'Area','MajorAxisLength');
         WM_Pz_Area = regionprops(WM_Pz,'Area','MajorAxisLength');
@@ -28,7 +27,6 @@ for i = 1:n(2)
         MR_Pz_Area = regionprops(mrPz,'Area','MajorAxisLength');
         
         %Compute Ovelap and Overlap Percentage
-        
         Prostate_Overlap = WM_Prostate.*mrProstate;
         Prostate_OverlapPercent = (sum(Prostate_Overlap)/sum(mrProstate))*100;
         
@@ -39,20 +37,17 @@ for i = 1:n(2)
         Pz_OverlapPercent = (sum(Pz_Overlap)/sum(mrPz))*100;
         
         %Dice Similarity Coefficient
-        
         Prostate_Dice = sum(Prostate_Overlap*2)/(sum(WM_Prostate)+sum(mrProstate));
         Pz_Dice = sum(Pz_Overlap*2)/(sum(WM_Pz)+sum(mrPz));
         Tz_Dice = sum(Tz_Overlap*2)/(sum(WM_Tz)+sum(mrTz));
         
         %Hausdorff Distance
-        
         [Hausdorff_Prostate,Prostate_Location] = findHausdorff(data(i).slice(j).NewWM_Prostate,data(i).slice(j).mrProstate);
         [Hausdorff_Tz,Tz_Location] = findHausdorff(data(i).slice(j).NewWM_Tz,data(i).slice(j).mrTz);
         [Hausdorff_Pz,Pz_Location] = findHausdorff(data(i).slice(j).NewWM_Pz,data(i).slice(j).mrPz);
         
       
         %Add in Tumors
-        
         if check(4) == 1
             WM_Tumor1 = poly2mask(data(i).slice(j).NewWM_Tumor1(:,1),data(i).slice(j).NewWM_Tumor1(:,2),res,res);
             mrTumor1 = poly2mask(data(i).slice(j).mrTumor1(:,1),data(i).slice(j).mrTumor1(:,2),res,res);
@@ -152,7 +147,7 @@ for i = 1:n(2)
         data(i).slice(j).stat.Hausdorff_Tz = [Hausdorff_Tz,Tz_Location];
         data(i).slice(j).stat.Hausdorff_Pz = [Hausdorff_Pz,Pz_Location];
         
-        f1 = figure('Position',[10,10,1000,1000]);
+        f1 = figure('Position',[10,10,1000,1000],'visible','off');
         
         subplot(2,2,1);
         hold on
@@ -212,6 +207,10 @@ for i = 1:n(2)
             hold off
         end
        
-        
+       % Save the figure
+       filename = ['slice' num2str(j)];
+       saveas(gcf,cell2mat(fullfile(path,data(i).id,['slice' num2str(j)])),'png');
+       clf(f1);
+       
     end
 end
