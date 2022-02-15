@@ -14,7 +14,7 @@ clc
 %% File Selection
 [filename,path] = uigetfile('*');
 cd(path);
-addpath 'C:\Users\griff\Documents\MATLAB\jake-code'
+addpath 'C:\Users\griff\github\hand-mold-slice'; % Path where functions are stored
 
 %% Import ROI Data
 fprintf('Importing...\n');
@@ -23,11 +23,13 @@ s = ImportROIs(filename,path); % Change sheet name to "Ready" and move data ther
 %% Alignment
 fprintf('Aligning...\n');
 s = RigidAlign(s);
-s = NonrigidAlignment(s);
+s = NonRigidAlign(s); % Requires Mapping, Statistics & Machine Learning Toolboxes
 
-%% Statistics + Store Data
+%% Statistics
 fprintf('Computing Statistics...\n');
-patients = Statistics(patients);
+s = Statistics(s);
+
+%% Store Data
 fprintf('Storing Data...\n');
-storeData(patients);
+storeData(s);
 fprintf('Done\n');

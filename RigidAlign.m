@@ -77,12 +77,12 @@ for i = 1:m
         WMPz(:,1) = WMPz(:,1) + MR_Parameters.Centroid(1);
         WMPz(:,2) = WMPz(:,2) + MR_Parameters.Centroid(2);
         
-        data(i).slice(j).WM_Prostate = WM;
-        data(i).slice(j).WM_Tz = WMTz;
-        data(i).slice(j).WM_Pz = WMPz;
-        data(i).slice(j).MR_Prostate = MRProstate1;
-        data(i).slice(j).MR_Tz = MRTz;
-        data(i).slice(j).MR_Pz = MRPz;
+        data(i).slice(j).wmProstate = WM;
+        data(i).slice(j).wmTz = WMTz;
+        data(i).slice(j).wmPz = WMPz;
+        data(i).slice(j).mrProstate = MRProstate1;
+        data(i).slice(j).mrTz = MRTz;
+        data(i).slice(j).mrPz = MRPz;
         
         if check(4) == 1
             WMTumor1 = cell2mat(data(i).slice(j).WM_Tumor1(:,1:2));
