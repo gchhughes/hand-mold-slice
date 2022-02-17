@@ -29,7 +29,7 @@ for i = 1:n(2)
         [data(i).slice(j).tParam,data(i).slice(j).NewWM_Pz] = tpsWarp(data(i).slice(j).ControlPts,data(i).slice(j).AmmendedTargets,data(i).slice(j).wmPz);
         
         if check(4) == 1
-            [data(i).slice(j).tParam,data(i).slice(j).NewWM_Tumor1] = tpsWarp(data(i).slice(j).ControlPts,data(i).slice(j).AmmendedTargets,data(i).slice(j).wmumor1);
+            [data(i).slice(j).tParam,data(i).slice(j).NewWM_Tumor1] = tpsWarp(data(i).slice(j).ControlPts,data(i).slice(j).AmmendedTargets,data(i).slice(j).wmTumor1);
         end
         
         if check(5) == 1
