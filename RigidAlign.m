@@ -85,8 +85,8 @@ for i = 1:m
         data(i).slice(j).mrPz = MRPz;
         
         if check(4) == 1
-            WMTumor1 = cell2mat(data(i).slice(j).WM_Tumor1(:,1:2));
-            MRTumor1 = cell2mat(data(i).slice(j).MR_Tumor1(:,1:2));
+            WMTumor1 = cell2mat(data(i).slice(j).wmTumor1(:,1:2));
+            MRTumor1 = cell2mat(data(i).slice(j).mrTumor1(:,1:2));
             TumorParam = regionprops(poly2mask(WMTumor1(:,1),WMTumor1(:,2),res,res));
             WMTumor1(:,1) = WMTumor1(:,1) - WM_Parameters.Centroid(1);
             WMTumor1(:,2) = WMTumor1(:,2) - WM_Parameters.Centroid(2);
@@ -96,13 +96,13 @@ for i = 1:m
             WMTumor1 = WMTumor1*shift;
             WMTumor1(:,1) = WMTumor1(:,1) + MR_Parameters.Centroid(1);
             WMTumor1(:,2) = WMTumor1(:,2) + MR_Parameters.Centroid(2);
-            data(i).slice(j).WM_Tumor1 = WMTumor1;
-            data(i).slice(j).MR_Tumor1 = MRTumor1;
+            data(i).slice(j).wmTumor1 = WMTumor1;
+            data(i).slice(j).mrTumor1 = MRTumor1;
         end
         
         if check(5) == 1
-            WMTumor2 = cell2mat(data(i).slice(j).WM_Tumor2(:,1:2));
-            MRTumor2 = cell2mat(data(i).slice(j).MR_Tumor2(:,1:2));
+            WMTumor2 = cell2mat(data(i).slice(j).wmTumor2(:,1:2));
+            MRTumor2 = cell2mat(data(i).slice(j).mrTumor2(:,1:2));
             TumorParam = regionprops(poly2mask(WMTumor2(:,1),WMTumor2(:,2),res,res));
             WMTumor2(:,1) = WMTumor2(:,1) - WM_Parameters.Centroid(1);
             WMTumor2(:,2) = WMTumor2(:,2) - WM_Parameters.Centroid(2);
@@ -112,13 +112,13 @@ for i = 1:m
             WMTumor2 = WMTumor2*shift;
             WMTumor2(:,1) = WMTumor2(:,1) + MR_Parameters.Centroid(1);
             WMTumor2(:,2) = WMTumor2(:,2) + MR_Parameters.Centroid(2);
-            data(i).slice(j).WM_Tumor2 = WMTumor2;
-            data(i).slice(j).MR_Tumor2 = MRTumor2;
+            data(i).slice(j).wmTumor2 = WMTumor2;
+            data(i).slice(j).mrTumor2 = MRTumor2;
         end
         
         if check(6) == 1
-            WMTumor3 = cell2mat(data(i).slice(j).WM_Tumor3(:,1:2));
-            MRTumor3 = cell2mat(data(i).slice(j).MR_Tumor3(:,1:2));
+            WMTumor3 = cell2mat(data(i).slice(j).wmTumor3(:,1:2));
+            MRTumor3 = cell2mat(data(i).slice(j).mrTumor3(:,1:2));
             TumorParam = regionprops(poly2mask(WMTumor3(:,1),WMTumor3(:,2),res,res));
             WMTumor3(:,1) = WMTumor3(:,1) - WM_Parameters.Centroid(1);
             WMTumor3(:,2) = WMTumor3(:,2) - WM_Parameters.Centroid(2);
@@ -128,8 +128,8 @@ for i = 1:m
             WMTumor3 = WMTumor3*shift;
             WMTumor3(:,1) = WMTumor3(:,1) + MR_Parameters.Centroid(1);
             WMTumor3(:,2) = WMTumor3(:,2) + MR_Parameters.Centroid(2);
-            data(i).slice(j).WM_Tumor3 = WMTumor3;
-            data(i).slice(j).MR_Tumor3 = MRTumor3;
+            data(i).slice(j).wmTumor3 = WMTumor3;
+            data(i).slice(j).mrTumor3 = MRTumor3;
         end
     end
 end
