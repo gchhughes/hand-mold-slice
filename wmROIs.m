@@ -71,8 +71,8 @@ end
 d(:,1:3) = f(:,1:3);
 [n,~] = size(d);
 d = num2cell(d);
-idCode = FindDataLabels(filename);
-idCode{2} = '1'; % testing a theory
+idCode = FindLabels(filename);
+% idCode{2} = '1'; % testing a theory
 for i=1:n
     j = cell2mat(d(i,3));
     if j> size(idCode)

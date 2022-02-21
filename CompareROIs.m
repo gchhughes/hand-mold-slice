@@ -31,5 +31,5 @@ s = Statistics(s,path);
 
 %% Store Data
 fprintf('Storing Data...\n');
-storeData(s);
+storeData(s,path);
 fprintf('Done\n');

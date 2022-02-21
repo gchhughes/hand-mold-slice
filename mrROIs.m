@@ -77,7 +77,7 @@ end
 d(:,3) = f(:,3);
 [n,~] = size(d);
 d = num2cell(d);
-idCode = FindDataLabels(filename);
+idCode = FindLabels(filename);
 for i=1:n
     j = cell2mat(d(i,3));
     if j> size(idCode)

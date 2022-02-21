@@ -1,6 +1,6 @@
 function [data] = Statistics(data,path)
 n = size(data);
-res = 512;
+res = 2048;
 for i = 1:n(2)
     m = size(data(i).slice);
     for j = 1:m(2)
