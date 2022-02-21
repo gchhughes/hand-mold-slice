@@ -22,9 +22,6 @@ tzLoc = regexpi(y,'Tz');
 pzLoc = regexpi(y,'Pz');
 prostateLoc = regexpi(y,'prostate');
 lesionLoc = regexpi(y,'lesion');
-if lesionLoc == []
-    fprintf('No Lesion on '+filename{:});
-end
 areaLoc = regexpi(y,'Area');
 
 %% Determine Order of Labels
