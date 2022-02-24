@@ -12,26 +12,28 @@ sz = size(c);
 s = struct([]); % Create an empty structure
 
 %% Sort Spreadsheet (Section may require changes depending on spreadsheet format)
-for i = 1:sz(1)
+for ii = 1:sz(1)
     wm = cell(1,((sz(2)/2)-1));
     mr = cell(1,((sz(2)/2)-1));
     k = 1;
     l = 1;
     for j = 5:sz(2)
         if mod(j,2) == 1
-            wm(k) = c(i,j);
+            wm(k) = c(ii,j);
             k = k+1;
         elseif mod(j,2) ~= 1
-            mr(l) = c(i,j);
+            mr(l) = c(ii,j);
             l = l+1;
         end
     end
-    maskMR = cell2mat(cellfun(@(x)any(isnan(x)),mr,'UniformOutput',false)); % Identify NaN cells
-    wm(maskMR) = [];
-    mr(maskMR) = [];
-    s(i).id = c(i,1);
-    s(i).wm = wm;
-    s(i).mr = mr;
+    maskNaN = cell2mat(cellfun(@(x)any(isnan(x)),mr,'UniformOutput',false)); % Identify NaN cells
+    maskEmpty = cell2mat(cellfun(@(x)any(isempty(x)),mr,'UniformOutput',false)); % Identify [] cells
+    mask = logical(maskNaN+maskEmpty); % Remove NaN and [] cells
+    wm(mask) = [];
+    mr(mask) = [];
+    s(ii).id = c(ii,1);
+    s(ii).wm = wm;
+    s(ii).mr = mr;
 end
 
 %% Create Slice Structures
