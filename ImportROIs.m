@@ -7,7 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [s] = ImportROIs(filename,path)
-[~,~,c] = xlsread(filename,'Test');    % Switched to xlsread because it NaN cells w/out data; edit to select sheet
+[~,~,c] = xlsread(filename,'InProgress');    % Switched to xlsread because it NaN cells w/out data; edit to select sheet
 sz = size(c);
 s = struct([]); % Create an empty structure
 
@@ -17,7 +17,7 @@ for i = 1:sz(1)
     mr = cell(1,((sz(2)/2)-1));
     k = 1;
     l = 1;
-    for j = 3:sz(2)
+    for j = 5:sz(2)
         if mod(j,2) == 1
             wm(k) = c(i,j);
             k = k+1;
