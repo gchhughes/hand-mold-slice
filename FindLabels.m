@@ -48,7 +48,7 @@ for i = 1:n(2)
             traceEnd(i) - x;
             break
         elseif x == lesionLoc
-            switch y(x+6)
+            switch y(x+6) % Find Lesion #
                 case '1'
                     id{i} = '1';
                 case '2'
