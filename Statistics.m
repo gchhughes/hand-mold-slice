@@ -147,6 +147,7 @@ for i = 1:n(2)
         data(i).slice(j).stat.Hausdorff_Tz = [Hausdorff_Tz,Tz_Location];
         data(i).slice(j).stat.Hausdorff_Pz = [Hausdorff_Pz,Pz_Location];
         
+        %% Plots
         f1 = figure('Position',[10,10,1000,1000],'visible','off');
         
         subplot(2,2,1);
@@ -157,9 +158,10 @@ for i = 1:n(2)
         plot(data(i).slice(j).NewWM_Prostate(:,1),data(i).slice(j).NewWM_Prostate(:,2)*-1,'blue');
         plot(data(i).slice(j).mrTz(:,1),data(i).slice(j).mrTz(:,2)*-1,'green');
         plot(data(i).slice(j).NewWM_Tz(:,1),data(i).slice(j).NewWM_Tz(:,2)*-1,'black')
-        %plot(a(:,1),a(:,2),'magenta')
+        % plot(a(:,1),a(:,2),'magenta')
         legend('MR Prostate','WM Prostate','MR Tz','WM Tz','Location','southoutside','Orientation','horizontal')
         hold off
+
         subplot(2,2,2);
         hold on
         axis equal
@@ -168,7 +170,7 @@ for i = 1:n(2)
         plot(data(i).slice(j).NewWM_Prostate(:,1),data(i).slice(j).NewWM_Prostate(:,2)*-1,'blue');
         plot(data(i).slice(j).mrPz(:,1),data(i).slice(j).mrPz(:,2)*-1,'green')
         plot(data(i).slice(j).NewWM_Pz(:,1),data(i).slice(j).NewWM_Pz(:,2)*-1,'black')
-        %plot(a(:,1),a(:,2),'magenta')
+        % plot(a(:,1),a(:,2),'magenta')
         legend('MR Prostate','WM Prostate','MR Pz','WM Pz','Location','southoutside','Orientation','horizontal')
         hold off
         if check(4) == 1
@@ -180,7 +182,7 @@ for i = 1:n(2)
             plot(data(i).slice(j).NewWM_Prostate(:,1),data(i).slice(j).NewWM_Prostate(:,2)*-1,'blue');
             plot(data(i).slice(j).mrTumor1(:,1),data(i).slice(j).mrTumor1(:,2)*-1,'green')
             plot(data(i).slice(j).NewWM_Tumor1(:,1),data(i).slice(j).NewWM_Tumor1(:,2)*-1,'black')
-            %plot(a(:,1),a(:,2),'magenta')
+            % plot(a(:,1),a(:,2),'magenta')
             legend('MR Prostate','WM Prostate','MR Tumor','WM Tumor','Location','southoutside','Orientation','horizontal')
             hold off
         end
@@ -210,7 +212,7 @@ for i = 1:n(2)
        % Save the figure
        filename = ['slice' num2str(j)];
        saveas(gcf,cell2mat(fullfile(path,data(i).id,['slice' num2str(j)])),'png');
-       clf(f1);
+       % clf(f1);
        
     end
 end
